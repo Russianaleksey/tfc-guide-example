@@ -1,8 +1,15 @@
 terraform {
   required_providers {
     azurerm = {
-      source = "hashicorp/azurerm"
+      source  = "hashicorp/azurerm"
       version = "~> 2.65"
+    }
+  }
+
+  backend "remote" {
+    organization = "alex-personal"
+    workspaces {
+      name = "alex-testing-workspace"
     }
   }
 
