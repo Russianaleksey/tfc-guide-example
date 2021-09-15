@@ -1,15 +1,10 @@
 variable "region" {
-  description = "AWS region"
-  default     = "us-west-1"
+  description = "azure region"
+  default     = "westus2"
 }
 
-variable "instance_type" {
-  description = "Type of EC2 instance to provision"
-  default     = "t2.micro"
-}
-
-variable "instance_name" {
-  description = "EC2 instance name"
-  default     = "Provisioned by Terraform"
+variable "resource_group_name" {
+  description = "Azure resource group name"
+  default     = "Testing-Terraform-Alex"
 }
 

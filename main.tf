@@ -1,28 +1,20 @@
-provider "aws" {
-  region = var.region
+provider "azurerm" {
+  features {}
 }
 
-data "aws_ami" "ubuntu" {
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["099720109477"] # Canonical
-}
-
-resource "aws_instance" "ubuntu" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = var.instance_type
+resource "azurerm_resource_group" "rg" {
+  name = var.resource_group_name
+  location = var.region
 
   tags = {
-    Name = var.instance_name
+     Environment = "Terraform Getting Started"
+     Team        = "Product Security"
   }
+}
+
+resource "azurerm_virtual_network" "vnet" {
+    name                = "myTFVnet"
+    address_space       = ["10.0.0.0/16"]
+    location            = var.region
+    resource_group_name = azurerm_resource_group.rg.name
 }

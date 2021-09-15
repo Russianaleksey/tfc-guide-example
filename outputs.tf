@@ -1,8 +1,3 @@
-output "instance_ami" {
-  value = aws_instance.ubuntu.ami
+output "resource_group_id" {
+  value = azurerm_resource_group.rg.id
 }
-
-output "instance_arn" {
-  value = aws_instance.ubuntu.arn
-}
-
