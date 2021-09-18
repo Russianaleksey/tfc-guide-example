@@ -8,3 +8,7 @@ variable "resource_group_name" {
   default     = "Testing-Terraform-Alex"
 }
 
+variable "prefix" {
+  description = "Prefix for Azure resources"
+  default     = "Alex_Testing"
+}
