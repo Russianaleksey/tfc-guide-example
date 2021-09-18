@@ -106,8 +106,8 @@ resource "azurerm_virtual_machine" "main" {
 }
 
 
-resource "azurerm_subnet_network_security_group_association" "SubnetNSGAssociation" {
-  subnet_id                 = azurerm_subnet.internal.id
+resource "azurerm_network_interface_security_group_association" "assoc1" {
+  network_interface_id = azurerm_network_interface.main.id
   network_security_group_id = azurerm_network_security_group.NSG-1.id
 }
 
