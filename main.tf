@@ -94,7 +94,7 @@ resource "azurerm_virtual_machine" "main" {
   os_profile {
     computer_name  = "hostname"
     admin_username = "testadmin"
-    admin_password = "1f%Xnj1YBrUQSEJ2oQsP"
+    admin_password = var.vm_admin_pass
   }
   os_profile_linux_config {
     disable_password_authentication = false
@@ -107,7 +107,7 @@ resource "azurerm_virtual_machine" "main" {
 
 
 resource "azurerm_network_interface_security_group_association" "assoc1" {
-  network_interface_id = azurerm_network_interface.main.id
+  network_interface_id      = azurerm_network_interface.main.id
   network_security_group_id = azurerm_network_security_group.NSG-1.id
 }
 
