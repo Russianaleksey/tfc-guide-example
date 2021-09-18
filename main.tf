@@ -12,6 +12,27 @@ resource "azurerm_resource_group" "rg" {
   }
 }
 
+
+resource "azurerm_network_security_group" "NSG-1" {
+  name                = "testNSG"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+
+  security_rule {
+    name                       = "AllowRDP"
+    priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "3389"
+    source_address_prefix      = "99.39.99.70"
+    destination_address_prefix = "*"
+  }
+}
+
+
+
 resource "azurerm_virtual_network" "main" {
   name                = "${var.prefix}-network"
   address_space       = ["10.0.0.0/16"]
@@ -82,5 +103,11 @@ resource "azurerm_virtual_machine" "main" {
     Team = "Product Security"
   }
 
+}
+
+
+resource "azurerm_subnet_network_security_group_association" "SubnetNSGAssociation" {
+  subnet_id                 = azurerm_subnet.internal.id
+  network_security_group_id = azurerm_network_security_group.NSG-1.id
 }
 
