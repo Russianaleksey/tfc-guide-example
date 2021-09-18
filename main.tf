@@ -19,6 +19,13 @@ resource "azurerm_virtual_network" "main" {
   resource_group_name = azurerm_resource_group.rg.name
 }
 
+resource "azurerm_public_ip" "vm1_public" {
+  name                = "PublicIP_vm1"
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  allocation_method   = "Dynamic"
+}
+
 resource "azurerm_subnet" "internal" {
   name                 = "internal"
   resource_group_name  = azurerm_resource_group.rg.name
@@ -35,6 +42,8 @@ resource "azurerm_network_interface" "main" {
     name                          = "testconfiguration1"
     subnet_id                     = azurerm_subnet.internal.id
     private_ip_address_allocation = "Dynamic"
+
+    public_ip_address_id = azurerm_public_ip.vm1_public.id
   }
 }
 
